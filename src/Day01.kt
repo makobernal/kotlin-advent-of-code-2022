@@ -6,10 +6,8 @@ fun main() {
         input.forEach {
             if (it == "") {
                 currentIndex++
-    //                println("currentIndex = ${currentIndex}, it = ${it}, templist = $templist")
                 accumlatorList.add(mutableListOf())
             } else {
-    //                println("currentIndex = ${currentIndex}, it = ${it}, templist = $templist")
                 accumlatorList[currentIndex].add(it)
             }
         }
@@ -23,10 +21,7 @@ fun main() {
     fun part2(input: List<String>): Int {
         val summedList = asListOfListOfInts(input).map { it.sum() }
         val sortedList = summedList.sortedDescending()
-        println("sortedList = ${sortedList}")
-
         val trimmedList = sortedList.take(3)
-        println("trimmedList = ${trimmedList}")
         return trimmedList.sum()
     }
 
