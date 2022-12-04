@@ -2,22 +2,32 @@ fun main() {
 
     fun parseToRange(z:String) : IntRange = z.substringBefore("-").toInt()..z.substringAfter("-").toInt()
 
-    fun isEitherRangeContainingTheOther(ranges: Pair<IntRange, IntRange>) =
+    fun isEitherRangeContainingTheOther(ranges: Pair<IntRange, IntRange>): Boolean =
         ranges.first.toList().containsAll(ranges.second.toList()) ||
                 ranges.second.toList().containsAll(ranges.first.toList())
 
-    fun part1(input: List<String>): Int {
-        val ranges = input
-            .map { it.split(",") }
-            .map { Pair(parseToRange(it[0]), parseToRange(it[1]))}
+    fun toRangePairs(input: List<String>) = input
+        .map { it.split(",") }
+        .map { Pair(parseToRange(it[0]), parseToRange(it[1])) }
 
-        val fullyContainedRanges = ranges.filter { isEitherRangeContainingTheOther(it) }
+    fun part1(input: List<String>): Int {
+        val fullyContainedRanges = toRangePairs(input)
+            .filter { isEitherRangeContainingTheOther(it) }
 
         return fullyContainedRanges.size
     }
 
+    fun isThereAnyOverlap(pair: Pair<IntRange, IntRange>) : Boolean {
+        val totalSize = pair.first.count() + pair.second.count()
+        val mergedSize = (pair.first.toList() + pair.second.toList()).toSet().size
+        return totalSize != mergedSize
+    }
+
     fun part2(input: List<String>): Int {
-        return 3
+        val pairsOverlapping = toRangePairs(input)
+            .filter { isThereAnyOverlap(it) }
+
+        return pairsOverlapping.size
     }
 
 
@@ -26,7 +36,7 @@ fun main() {
     val testResult = part1(testInput)
     val testResult2 = part2(testInput)
     check(testResult == 2) { "wrong input $testResult is not 2" }
-//    check(testResult2 == 70) { "wrong input $testResult is not whatever they put on the 2nd assignment" }
+    check(testResult2 == 4) { "wrong input $testResult is not 4" }
 
     val input = readInput("Day04")
     val result1 = part1(input)
