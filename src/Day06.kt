@@ -33,8 +33,8 @@ fun main() {
     val testInput = readInput("Day06_test")
     val testResult = part1(testInput)
     val testResult2 = part2(testInput)
-    check(testResult == 7) { "wrong input $testResult is not 7" }
-    check(testResult2 == 19) { "wrong input $testResult is not XXX" }
+    check(testResult == 7) { "wrong solution for part 1, $testResult is not 7" }
+    check(testResult2 == 19) { "wrong solution for part 2, $testResult is not 19" }
 
     val input = readInput("Day06")
     val result1 = part1(input)
